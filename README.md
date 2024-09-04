@@ -64,5 +64,94 @@ Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregad
 - Código limpo e organizado
 - Logs bem estruturados
 - Seguir convenções utilizadas pela comunidade
-  
 
+
+## Instruções para executar os testes
+
+Criar o docker RabbitMQ
+```
+docker run -d --hostname mottomr-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:management
+```  
+
+Criar docker container Postgress
+```
+docker run --name mottomr-postgres -e POSTGRES_USER=mottomruser -e POSTGRES_PASSWORD=mottomrpass -e POSTGRES_DB=mottomrdb -p 5432:5432 -d postgres:latest
+```  
+
+Abrir o projeto no Visual Studio 2022 Community em "/Desafio-BackEnd/Motto.MR.Api/Motto.MR.Api.sln"
+
+Executar o migration para projeto Motto.MR.DataAccess. Pelo Visual Studio em View-->Other Windows-->Package Manager Console. Selecionar o projeto Motto.MR.DataAccess em Default project:.
+
+Rodar o comando para criação do banco de dados.
+```
+PM> update-database
+```  
+
+## Instruções para com swagger para o controle "DeliveryPerson" (Entregador).
+
+Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+{
+  "userIdentifier": "Delivery",
+  "deliveryPerson": {
+    "name": "Alvaro",
+    "cnpj": "10024587890",
+    "birthDate": "1970-09-04T19:36:34.065Z",
+    "driverLicenseNumber": "123578",
+    "driverLicenseType": "A",
+    "driverLicenseImageBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII="
+  }
+}
+
+Exemplo: Input para o método "delete-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+{
+  "userIdentifier": "delivery",
+  "id": 1
+}
+
+Exemplo: Input para o método "getall-deliverypersons". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+{
+  "userIdentifier": "delivery"
+}
+
+Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+{
+  "userIdentifier": "delivery",
+  "id": 7
+}
+
+## Instruções para com swagger para o controle "Motorcycle" (Moto).
+
+Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
+
+{
+  "userIdentifier": "Admin",
+  "motorcycle": {
+    "identifier": "moto123",
+    "year": 2024,
+    "model": "Sport 110i",
+    "licensePlate": "NCY-2517"
+  }
+}
+
+Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
+
+{
+  "userIdentifier": "string",
+  "id": 1,
+  "motorcycle": {
+    "identifier": "moto123",
+    "year": 2024,
+    "model": "Sport 110i",
+    "licensePlate": "NCY-8840"
+  }
+}
+
+Exemplo: Input para o método "getall-motorcycles". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
+
+{
+  "userIdentifier": "Admin"
+}

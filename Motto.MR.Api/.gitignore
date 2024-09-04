@@ -1,0 +1,14 @@
+.vs/
+*.bak
+obj/
+Motto.MR.Api/bin/
+Motto.MR.Api/obj/
+Motto.MR.Api/Logs/
+Motto.MR.Api/delivery/
+Motto.MR.Api/Properties/PublishProfiles/
+Motto.MR.DataAccess/bin/
+Motto.MR.DataAccess/obj/
+Motto.MR.Domain/bin/
+Motto.MR.Domain/obj/
+Motto.MR.Shared/bin/
+Motto.MR.Shared/obj/

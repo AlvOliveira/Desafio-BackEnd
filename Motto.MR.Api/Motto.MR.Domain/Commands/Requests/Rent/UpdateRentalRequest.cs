@@ -1,0 +1,14 @@
+﻿using Motto.MR.Shared.Models;
+
+namespace Motto.MR.Domain.Commands.Requests.Rent
+{
+    public class UpdateRentalRequest
+    {
+        public UpdateRentalRequest()
+        {
+        }
+        public string UserIdentifier { get; set; }
+        public int Id { get; set; }
+        public Rental Rental { get; set; }
+    }
+}

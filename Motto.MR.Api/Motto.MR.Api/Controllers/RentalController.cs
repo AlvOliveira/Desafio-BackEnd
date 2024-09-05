@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Commands.Requests.Rent;
 using Motto.MR.Domain.Handler;
 using Motto.MR.Shared.Commands;
-using Motto.MR.Shared.Constants;
 using Serilog;
 
 namespace Motto.MR.Api.Controllers

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Motto.MR.Shared\Motto.MR.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

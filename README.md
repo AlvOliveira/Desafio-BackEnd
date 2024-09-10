@@ -68,25 +68,14 @@ Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregad
 
 ## Instruções para configuração do ambiente.
 
-Criar o docker RabbitMQ
+Ir no diretório Motto.MR.Api e executar o comando abaixo:
 ```
-docker run -d --hostname mottomr-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:management
+docker compose --project-name mottomr-api up -d
 ```  
 
-Criar docker container Postgress
-```
-docker run --name mottomr-postgres -e POSTGRES_USER=mottomruser -e POSTGRES_PASSWORD=mottomrpass -e POSTGRES_DB=mottomrdb -p 5432:5432 -d postgres:latest
-```  
+Aguardar pelo menos 30 segundos para RabbitMQ ficar operante através do healthcheck.
+O RabbitMqConsumerService está sendo executado em BackgroundService quando Web Api sobe.
 
-Abrir o projeto no Visual Studio 2022 Community em "/Desafio-BackEnd/Motto.MR.Api/Motto.MR.Api.sln"
-
-Executar o migration para projeto Motto.MR.DataAccess. Pelo Visual Studio em View-->Other Windows-->Package Manager Console. Selecionar o projeto Motto.MR.DataAccess em Default project:.
-
-Rodar o comando para criação do banco de dados.
-PM> update-database
-```
-update-database
-```  
 
 ## Instruções para o teste com swagger para o controle "DeliveryPerson" (Entregador).
 

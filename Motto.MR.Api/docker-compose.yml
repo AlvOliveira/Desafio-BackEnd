@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: mottomruser
+      POSTGRES_PASSWORD: mottomrpass
+      POSTGRES_DB: mottomrdb
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    hostname: mottomr-postgres
+    networks:
+      - mottomr_network
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Porta do management do RabbitMQ
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    hostname: mottomr-rabbit
+    networks:
+      - mottomr_network
+
+  motto.mr.api:
+    image: ${DOCKER_REGISTRY-}mottomrapi
+    build:
+      context: .
+      dockerfile: Motto.MR.Api/Dockerfile
+    depends_on:
+      postgres:
+       condition: service_started
+      rabbitmq:
+       condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ./Logs:/app/Logs # Mapeamento dos logs
+    networks:
+      - mottomr_network
+
+volumes:
+  postgres_data:
+
+networks:
+  mottomr_network:
+    driver: bridge

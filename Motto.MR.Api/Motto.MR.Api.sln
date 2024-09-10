@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motto.MR.Api", "Motto.MR.Api\Motto.MR.Api.csproj", "{7FDD0AB2-D098-4E3C-A28A-F816A8C6996A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Motto.MR.Api", "Motto.MR.Api\Motto.MR.Api.csproj", "{7FDD0AB2-D098-4E3C-A28A-F816A8C6996A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Motto.MR.Shared", "Motto.MR.Shared\Motto.MR.Shared.csproj", "{36F55A9E-5620-43FC-9A3C-78FBB73D0098}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motto.MR.DataAccess", "Motto.MR.DataAccess\Motto.MR.DataAccess.csproj", "{6862CF17-174A-43EA-B1E1-C63475BB0099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Motto.MR.DataAccess", "Motto.MR.DataAccess\Motto.MR.DataAccess.csproj", "{6862CF17-174A-43EA-B1E1-C63475BB0099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motto.MR.Domain", "Motto.MR.Domain\Motto.MR.Domain.csproj", "{8DAD94F4-E195-4170-A865-17ACAA9BD13A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Motto.MR.Domain", "Motto.MR.Domain\Motto.MR.Domain.csproj", "{8DAD94F4-E195-4170-A865-17ACAA9BD13A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{055223E5-4769-4B70-AD03-7472346B849C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8DAD94F4-E195-4170-A865-17ACAA9BD13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DAD94F4-E195-4170-A865-17ACAA9BD13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DAD94F4-E195-4170-A865-17ACAA9BD13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055223E5-4769-4B70-AD03-7472346B849C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055223E5-4769-4B70-AD03-7472346B849C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055223E5-4769-4B70-AD03-7472346B849C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055223E5-4769-4B70-AD03-7472346B849C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

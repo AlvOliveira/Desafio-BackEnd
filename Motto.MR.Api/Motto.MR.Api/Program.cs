@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Motto.MR.DataAccess.Contexts;
 using Motto.MR.DataAccess.Repositories;
 using Motto.MR.Domain.Handler;
@@ -40,6 +41,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    Migrate();
 }
 
 app.UseHttpsRedirection();
@@ -47,8 +49,27 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
+
+
+void Migrate()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<MottoMRContext>();
+
+        try
+        {
+            context.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            // Log error (ex)
+            throw;
+        }
+    }
+}
 
 
 void ConfigureServices(WebApplicationBuilder builder)

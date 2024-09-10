@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Motto.MR.DataAccess.Migrations
 {
     [DbContext(typeof(MottoMRContext))]
-    [Migration("20240904030029_InitialCreate")]
+    [Migration("20240910023314_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

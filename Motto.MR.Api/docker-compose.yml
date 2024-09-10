@@ -26,7 +26,6 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
-
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest

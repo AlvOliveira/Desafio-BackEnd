@@ -74,8 +74,12 @@ docker compose --project-name mottomr-api up -d
 ```  
 
 Aguardar pelo menos 30 segundos para RabbitMQ ficar operante através do healthcheck.
-O RabbitMqConsumerService está sendo executado em BackgroundService quando Web Api sobe.
+  O RabbitMqConsumerService está sendo executado em BackgroundService quando Web Api sobe.
 
+Abra o browser para os testes com swagger no link abaixo:
+```
+https://localhost:8081/swagger/index.html
+```
 
 ## Instruções para o teste com swagger para o controle "DeliveryPerson" (Entregador).
 

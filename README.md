@@ -91,6 +91,7 @@ Exemplo: Input para o método de login como entregador.
 }
 
 ```
+
 No **Response body** teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
 
 **{**
@@ -101,7 +102,7 @@ Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf
 
 ![Configurando o Authorize](Authorize.png)
 
-Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize**.
 ```
 {
   "deliveryPerson": {
@@ -114,27 +115,47 @@ Exemplo: Input para o método "create-deliveryperson". Para esse controle é pre
   }
 }
 ```
-Exemplo: Input para o método "delete-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+Exemplo: Input para o método "getall-deliverypersons". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize**.
+```
+No parameters
+```
+
+Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize**.
 ```
 {
   "id": 1
 }
 ```
-Exemplo: Input para o método "getall-deliverypersons". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
+
+Exemplo: Input para o método "delete-deliveryperson". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize**.
 ```
 {
-  "userIdentifier": "delivery"
+  "id": 1
 }
 ```
-Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
-```
-{
-  "id": 7
-}
-```
+
 ## Instruções para o teste com swagger para o controle "Motorcycle" (Moto).
 
-Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
+Exemplo: Input para o método de login como administrador.
+```
+{
+  "userName": "admin",
+  "password": "admin123"
+}
+```
+
+No **Response body** teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
+
+**{**
+  **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."**
+**}**
+
+Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf...** e inclua no **Authorize**. Conforme a figura abaixo: 
+
+![Configurando o Authorize](Authorize.png)
+
+Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
 ```
 {
   "motorcycle": {
@@ -145,7 +166,13 @@ Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso
   }
 }
 ```
-Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
+
+Exemplo: Input para o método "getall-motorcycles". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+```
+No parameters
+```
+
+Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
 ```
 {
   "id": 1,
@@ -155,11 +182,5 @@ Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso
     "model": "Sport 110i",
     "licensePlate": "NCY-8840"
   }
-}
-```
-Exemplo: Input para o método "getall-motorcycles". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
-```
-{
-  "userIdentifier": "Admin"
 }
 ```

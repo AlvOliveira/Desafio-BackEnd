@@ -6,7 +6,6 @@ namespace Motto.MR.Domain.Commands.Requests.Motor
         public DeleteMotorcycleRequest()
         {
         }
-        public string UserIdentifier { get; set; }
         public int Id { get; set; }
     }
 }

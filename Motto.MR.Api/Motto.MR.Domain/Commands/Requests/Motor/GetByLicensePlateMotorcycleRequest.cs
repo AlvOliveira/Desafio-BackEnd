@@ -6,7 +6,6 @@ namespace Motto.MR.Domain.Commands.Requests.Motor
         public GetByLicensePlateMotorcycleRequest() 
         { 
         }
-        public string UserIdentifier { get; set; }
         public string LicensePlate { get; set; }
     }
 }

@@ -16,9 +16,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(CreateRentalRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim()!="admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Create(command.Rental);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
@@ -26,9 +23,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(UpdateRentalRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Update(command.Id, command.Rental);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
@@ -36,19 +30,13 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(DeleteRentalRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Delete(command.Id);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
         }
 
-        public ICommandResult Handle(GetAllRentalsRequest command)
+        public ICommandResult Handle()
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var resultList = _repository.GetAllAsNoTracking();
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, resultList);
@@ -56,9 +44,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(GetByIdRentalRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var result = _repository.GetById(command.Id);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, result);

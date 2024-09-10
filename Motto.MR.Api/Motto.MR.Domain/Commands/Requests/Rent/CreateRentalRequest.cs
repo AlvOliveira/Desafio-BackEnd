@@ -7,7 +7,6 @@ namespace Motto.MR.Domain.Commands.Requests.Rent
         public CreateRentalRequest()
         {
         }
-        public string UserIdentifier { get; set; }
         public Rental Rental { get; set; }
     }
 }

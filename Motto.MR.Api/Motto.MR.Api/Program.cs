@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Motto.MR.DataAccess.Contexts;
 using Motto.MR.DataAccess.Repositories;
 using Motto.MR.Domain.Handler;
@@ -8,9 +10,15 @@ using Motto.MR.Shared.Helper;
 using Motto.MR.Shared.Services;
 using RabbitMQ.Client;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configura a autenticação JWT
+ConfigureAuthentication(builder);
+ConfigureAuthorization(builder);
+ConfigureSwagger(builder);
 ConfigureLog();
 
 // Add services to the container.
@@ -39,6 +47,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+
     app.UseSwagger();
     app.UseSwaggerUI();
     Migrate();
@@ -102,4 +111,53 @@ void ConfigureLog()
     Log.Logger = new LoggerConfiguration()
         .ReadFrom.Configuration(configuration)
         .CreateLogger();
+}
+
+void ConfigureSwagger(WebApplicationBuilder builder)
+{
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+        {
+            Description = "Standard authorization header using Bearer scheme (\"bearer {token}\")",
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey
+        });
+
+        options.OperationFilter<SecurityRequirementsOperationFilter>();
+    });
+
+}
+
+void ConfigureAuthentication(WebApplicationBuilder builder)
+{
+    var jwtSet = ReadSettings.GetJwtSettings();
+    var key = Encoding.ASCII.GetBytes(jwtSet.JwtKey);
+    builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+}
+
+void ConfigureAuthorization(WebApplicationBuilder builder)
+{
+    // Configura autorização
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+        options.AddPolicy("DeliveryPolicy", policy => policy.RequireRole("Delivery"));
+    });
 }

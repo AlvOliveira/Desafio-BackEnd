@@ -18,9 +18,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(CreateDeliveryPersonRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "delivery")
-                return new CommandResultDefault(false, StringConstants.ErrorUserDeliveryMessage);
-
             string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "delivery", "images");
             if (!Directory.Exists(directoryPath))
             {
@@ -55,9 +52,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(UpdateDeliveryPersonRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "delivery")
-                return new CommandResultDefault(false, StringConstants.ErrorUserDeliveryMessage);
-
             _repository.Update(command.Id, command.DeliveryPerson);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
@@ -65,19 +59,13 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(DeleteDeliveryPersonRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "delivery")
-                return new CommandResultDefault(false, StringConstants.ErrorUserDeliveryMessage);
-
             _repository.Delete(command.Id);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
         }
 
-        public ICommandResult Handle(GetAllDeliveryPersonsRequest command)
+        public ICommandResult Handle()
         {
-            if (command.UserIdentifier.ToLower().Trim() != "delivery")
-                return new CommandResultDefault(false, StringConstants.ErrorUserDeliveryMessage);
-
             var resultList = _repository.GetAllAsNoTracking();
 
             foreach ( var result in resultList )
@@ -103,9 +91,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(GetByIdDeliveryPersonRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "delivery")
-                return new CommandResultDefault(false, StringConstants.ErrorUserDeliveryMessage);
-
             var result = _repository.GetById(command.Id);
 
             if (result != null)

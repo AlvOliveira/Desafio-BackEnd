@@ -14,5 +14,14 @@ namespace Motto.MR.Shared.Helper
 
             return settings;
         }
+
+        public static JwtSettings GetJwtSettings()
+        {
+            var settings = new JwtSettings();
+
+            settings.JwtKey = Config.GetStr("Jwt:JwtKey");
+
+            return settings;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Commands.Requests.Motor;
 using Motto.MR.Domain.Handler;
@@ -9,6 +10,8 @@ namespace Motto.MR.Api.Controllers
     public class MotorcycleController : ControllerBase
     {
         [HttpPost("create-motorcycle")]
+        //[Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateMotorcycle(
             [FromBody] CreateMotorcycleRequest command,
             [FromServices] MotorcycleHandler handler
@@ -29,6 +32,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("update-motorcycle")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateMotorcycle(
             [FromBody] UpdateMotorcycleRequest command,
             [FromServices] MotorcycleHandler handler
@@ -49,6 +53,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("delete-motorcycle")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMotorcycle(
             [FromBody] DeleteMotorcycleRequest command,
             [FromServices] MotorcycleHandler handler
@@ -69,9 +74,9 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getall-motorcycles")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllMotorcycles
         (
-            [FromBody] GetAllMotorcyclesRequest command,
             [FromServices] MotorcycleHandler handler
         )
         {
@@ -79,7 +84,7 @@ namespace Motto.MR.Api.Controllers
 
             try
             {
-                return Ok((CommandResultDefault)handler.Handle(command));
+                return Ok((CommandResultDefault)handler.Handle());
             }
             catch (Exception e)
             {
@@ -90,6 +95,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbyid-motorcycle")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByIdMotorcycle
         (
             [FromBody] GetByIdMotorcycleRequest command,
@@ -111,6 +117,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbylicenseplate-motorcycle")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByLicensePlateMotorcycle
         (
             [FromBody] GetByLicensePlateMotorcycleRequest command,

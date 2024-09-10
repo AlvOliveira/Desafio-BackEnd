@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Handler;
 using Motto.MR.Shared.Commands;
@@ -9,6 +10,7 @@ namespace Motto.MR.Api.Controllers
     public class MotorcycleRegisterLogController : ControllerBase
     {
         [HttpPost("getall-motorcycleregisterlogs")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllMotorcycleRegisterLogs
         (
             [FromBody] GetAllMotorcycleRegisterLogsRequest command,

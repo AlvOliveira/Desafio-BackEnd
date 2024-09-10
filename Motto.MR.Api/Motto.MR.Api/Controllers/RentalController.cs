@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Commands.Requests.Rent;
 using Motto.MR.Domain.Handler;
@@ -9,6 +10,7 @@ namespace Motto.MR.Api.Controllers
     public class RentalController : ControllerBase
     {
         [HttpPost("create-rental")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> CreateRental(
             [FromBody] CreateRentalRequest command,
             [FromServices] RentalHandler handler
@@ -29,6 +31,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("update-rental")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> UpdateRental(
             [FromBody] UpdateRentalRequest command,
             [FromServices] RentalHandler handler
@@ -49,6 +52,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("delete-rental")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> DeleteRental(
             [FromBody] DeleteRentalRequest command,
             [FromServices] RentalHandler handler
@@ -69,9 +73,9 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getall-rentals")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetAllRentals
         (
-            [FromBody] GetAllRentalsRequest command,
             [FromServices] RentalHandler handler
         )
         {
@@ -79,7 +83,7 @@ namespace Motto.MR.Api.Controllers
 
             try
             {
-                return Ok((CommandResultDefault)handler.Handle(command));
+                return Ok((CommandResultDefault)handler.Handle());
             }
             catch (Exception e)
             {
@@ -90,6 +94,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbyid-rental")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetByIdRental
         (
             [FromBody] GetByIdRentalRequest command,

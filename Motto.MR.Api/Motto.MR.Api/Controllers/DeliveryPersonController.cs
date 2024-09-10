@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Commands.Requests.Delivery;
 using Motto.MR.Domain.Handler;
@@ -9,6 +10,7 @@ namespace Motto.MR.Api.Controllers
     public class DeliveryPersonController : ControllerBase
     {
         [HttpPost("create-deliveryperson")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> CreateDeliveryPerson(
             [FromBody] CreateDeliveryPersonRequest command,
             [FromServices] DeliveryPersonHandler handler
@@ -29,6 +31,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("update-deliveryperson")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> UpdateDeliveryPerson(
             [FromBody] UpdateDeliveryPersonRequest command,
             [FromServices] DeliveryPersonHandler handler
@@ -49,6 +52,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("delete-deliveryperson")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> DeleteDeliveryPerson(
             [FromBody] DeleteDeliveryPersonRequest command,
             [FromServices] DeliveryPersonHandler handler
@@ -69,9 +73,9 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getall-deliverypersons")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetAllDeliveryPersons
         (
-            [FromBody] GetAllDeliveryPersonsRequest command,
             [FromServices] DeliveryPersonHandler handler
         )
         {
@@ -79,7 +83,7 @@ namespace Motto.MR.Api.Controllers
 
             try
             {
-                return Ok((CommandResultDefault)handler.Handle(command));
+                return Ok((CommandResultDefault)handler.Handle());
             }
             catch (Exception e)
             {
@@ -90,6 +94,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbyid-deliveryperson")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetByIdDeliveryPerson
         (
             [FromBody] GetByIdDeliveryPersonRequest command,

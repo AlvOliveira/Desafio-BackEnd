@@ -7,7 +7,6 @@ namespace Motto.MR.Domain.Commands.Requests.Motor
         public UpdateMotorcycleRequest()
         {
         }
-        public string UserIdentifier { get; set; }
         public int Id { get; set; }
         public Motorcycle Motorcycle { get; set; }
     }

@@ -7,7 +7,6 @@ namespace Motto.MR.Domain.Commands.Requests.Delivery
         public CreateDeliveryPersonRequest()
         {
         }
-        public string UserIdentifier { get; set; }
         public DeliveryPerson DeliveryPerson { get; set; }
     }
 }

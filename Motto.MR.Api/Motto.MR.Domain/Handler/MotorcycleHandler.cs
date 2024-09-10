@@ -17,9 +17,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(CreateMotorcycleRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Create(command.Motorcycle);
 
             var rabbitMq = new RabbitMqProducerService();
@@ -30,9 +27,6 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(UpdateMotorcycleRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Update(command.Id, command.Motorcycle);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
@@ -40,19 +34,13 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(DeleteMotorcycleRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             _repository.Delete(command.Id);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);
         }
 
-        public ICommandResult Handle(GetAllMotorcyclesRequest command)
+        public ICommandResult Handle()
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var resultList = _repository.GetAllAsNoTracking();
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, resultList);
@@ -60,18 +48,12 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(GetByIdMotorcycleRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var result = _repository.GetById(command.Id);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, result);
         }
         public ICommandResult Handle(GetByLicensePlateMotorcycleRequest command)
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var result = _repository.GetByLicensePlate(command.LicensePlate);
 
             if (result == null)

@@ -83,10 +83,23 @@ https://localhost:8081/swagger/index.html
 
 ## Instruções para o teste com swagger para o controle "DeliveryPerson" (Entregador).
 
+Exemplo: Input para o método de login como entregador.
+```
+{
+  "userName": "delivery",
+  "password": "delivery123"
+}
+
+```
+No Response body teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
+
+**{
+  **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."
+**}
+
 Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
 ```
 {
-  "userIdentifier": "Delivery",
   "deliveryPerson": {
     "name": "Alvaro",
     "cnpj": "10024587890",
@@ -100,7 +113,6 @@ Exemplo: Input para o método "create-deliveryperson". Para esse controle é pre
 Exemplo: Input para o método "delete-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
 ```
 {
-  "userIdentifier": "delivery",
   "id": 1
 }
 ```
@@ -113,7 +125,6 @@ Exemplo: Input para o método "getall-deliverypersons". Para esse controle é pr
 Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
 ```
 {
-  "userIdentifier": "delivery",
   "id": 7
 }
 ```
@@ -122,7 +133,6 @@ Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é pr
 Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
 ```
 {
-  "userIdentifier": "Admin",
   "motorcycle": {
     "identifier": "moto123",
     "year": 2024,
@@ -134,7 +144,6 @@ Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso
 Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso informar o "userIdentifier": "Admin" (Administrador)
 ```
 {
-  "userIdentifier": "Admin",
   "id": 1,
   "motorcycle": {
     "identifier": "moto123",

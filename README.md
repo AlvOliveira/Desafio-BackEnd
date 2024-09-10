@@ -91,11 +91,15 @@ Exemplo: Input para o método de login como entregador.
 }
 
 ```
-No Response body teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
+No **Response body** teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
 
 **{**
   **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."**
 **}**
+
+Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf...** e inclua no **Authorize**. Conforme a figura abaixo: 
+
+![Configurando o Authorize](Authorize.png)
 
 Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
 ```

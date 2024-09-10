@@ -93,9 +93,9 @@ Exemplo: Input para o método de login como entregador.
 ```
 No Response body teremos o token de autorização do entregador para ser usado nos outros métodos com validade de 1 hora.
 
-**{
-  **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."
-**}
+**{**
+  **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."**
+**}**
 
 Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso informar o "userIdentifier": "Delivery" (Entregador)
 ```

@@ -212,7 +212,7 @@ Exemplo: Input para o método **"update-motorcycle"**. Para acesso a esse contro
 ```
 
 Exemplo: Input para o método **"delete-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
-Esse método remove a moto desde que não esteja aludada.
+Esse método remove a moto desde que não esteja alugada.
 ```
 {
   "id": 1

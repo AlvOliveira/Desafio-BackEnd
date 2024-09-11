@@ -218,7 +218,7 @@ Exemplo: Input para o método **"delete-motorcycle"**. Para acesso a esse contro
 ```
 
 ## Instruções para o teste com Swagger do controle "MotorcycleEventRegisterMQ"  
-Este método exibe os registros de motos cadastradas é de 2024. O consumidor RabbitMQ, que está rodando como um BackgroundService quando a Web API é iniciada, processa esses eventos e os grava no banco de dados.
+Este método exibe os registros de motos com ano de fabricação de 2024. Os eventos são processados pelo consumidor RabbitMQ, que roda como um BackgroundService assim que a Web API é iniciada, e então gravados no banco de dados.
 
 Exemplo: Para o método **"getall-motorcycleeventregistermq"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
 

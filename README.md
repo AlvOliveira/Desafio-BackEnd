@@ -98,6 +98,8 @@ No **Response body** teremos o token de autorização do entregador para ser usa
   **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."**
 **}**
 
+![Login Delivery (Entregador)](LoginDelivery.png)
+
 Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf...** e inclua no **Authorize**. Conforme a figura abaixo: 
 
 ![Configurando o Authorize](Authorize.png)
@@ -150,6 +152,9 @@ No **Response body** teremos o token de autorização do entregador para ser usa
 **{**
   **"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf..."**
 **}**
+
+![Login Admin (Administrador)](LoginAdmin.png)
+
 
 Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf...** e inclua no **Authorize**. Conforme a figura abaixo: 
 

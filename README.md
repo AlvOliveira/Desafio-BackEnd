@@ -74,7 +74,7 @@ docker compose --project-name mottomr-api up -d
 ```  
 
 Aguardar pelo menos 30 segundos para RabbitMQ ficar operante através do healthcheck.
-  O RabbitMqConsumerService está sendo executado em BackgroundService quando Web Api sobe.
+   Os eventos são processados pelo consumidor RabbitMQ, que roda como um BackgroundService assim que a Web API é iniciada, e então gravados no banco de dados.
 
 Abra o browser para os testes com swagger no link abaixo:
 ```
@@ -104,7 +104,7 @@ Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf
 
 ![Configurando o Authorize](Authorize.png)
 
-Exemplo: Input para o método **"create-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
+Exemplo: Input para o método **"create-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
 ```
 {
   "deliveryPerson": {
@@ -118,18 +118,18 @@ Exemplo: Input para o método **"create-deliveryperson"**. Para acesso a esse co
 }
 ```
 
-Exemplo: Para o método **"getall-deliverypersons"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.  
+Exemplo: Para o método **"getall-deliverypersons"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
 
 **No parameters**  
 
-Exemplo: Input para o método **"getbyid-deliveryperson"**. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
+Exemplo: Input para o método **"getbyid-deliveryperson"**. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
 ```
 {
   "id": 1
 }
 ```
 
-Exemplo: Input para o método **"update-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
+Exemplo: Input para o método **"update-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
 ```
 {
   "id": 1,
@@ -144,7 +144,8 @@ Exemplo: Input para o método **"update-deliveryperson"**. Para acesso a esse co
 }
 ```
 
-Exemplo: Input para o método **"delete-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
+Exemplo: Input para o método **"delete-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
+Esse método remove o cadastro do entregador desde que não esteja alugando alguma moto.
 ```
 {
   "id": 1
@@ -210,7 +211,8 @@ Exemplo: Input para o método **"update-motorcycle"**. Para acesso a esse contro
 }
 ```
 
-Exemplo: Input para o método **"delete-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+Exemplo: Input para o método **"delete-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+Esse método remove a moto desde que não esteja aludada.
 ```
 {
   "id": 1
@@ -223,3 +225,54 @@ Este método exibe os registros de motos com ano de fabricação de 2024. Os eve
 Exemplo: Para o método **"getall-motorcycleeventregistermq"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
 
 **No parameters**  
+
+## Instruções para o teste com swagger para o controle **"Rental"** (Moto).  
+
+Exemplo: Input para o método **"create-rental"**.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
+```
+{
+  "rental": {
+    "motorcycleId": 1,
+    "deliveryPersonId": 1,
+    "startDate": "2024-09-11T13:34:52.948Z",
+    "endDate": "2024-09-18T13:34:52.948Z",
+    "expectedEndDate": "2024-09-17T13:34:52.948Z",
+    "cost": 30,
+    "fine": 20
+  }
+}
+```
+
+Exemplo: Para o método **"getall-rental"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
+
+**No parameters**  
+
+Exemplo: Input para o método **"getbyid-rental"**. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
+```
+{
+  "id": 1
+}
+```
+
+Exemplo: Input para o método **"update-rental"**.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
+```
+{
+  "id": 1,
+  "rental": {
+    "motorcycleId": 1,
+    "deliveryPersonId": 1,
+    "startDate": "2024-09-11T13:34:52.948Z",
+    "endDate": "2024-09-26T13:34:52.948Z",
+    "expectedEndDate": "2024-09-25T13:34:52.948Z",
+    "cost": 28,
+    "fine": 40
+  }
+}
+```
+
+Exemplo: Input para o método **"delete-rental"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
+```
+{
+  "id": 1
+}
+```

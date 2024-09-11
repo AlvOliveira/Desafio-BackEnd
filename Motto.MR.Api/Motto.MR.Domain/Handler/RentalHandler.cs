@@ -39,12 +39,52 @@ namespace Motto.MR.Domain.Handler
         {
             var resultList = _repository.GetAllAsNoTracking();
 
+            foreach (var result in resultList)
+            {
+                if (File.Exists(result.DeliveryPerson.DriverLicenseImagePath))
+                {
+                    // Ler o arquivo como um array de bytes
+                    byte[] imageBytes = File.ReadAllBytes(result.DeliveryPerson.DriverLicenseImagePath);
+
+                    string ext = Path.GetExtension(result.DeliveryPerson.DriverLicenseImagePath).Replace(".", string.Empty);
+
+                    // Converter o array de bytes para uma string base64
+                    result.DeliveryPerson.DriverLicenseImageBase64 = $"data:image/{ext};base64,{Convert.ToBase64String(imageBytes)}";
+                }
+                else
+                {
+                    result.DeliveryPerson.DriverLicenseImageBase64 = $"File {result.DeliveryPerson.DriverLicenseImagePath} not found";
+                }
+            }
+
             return new CommandResultDefault(true, StringConstants.SuccessMessage, resultList);
         }
 
         public ICommandResult Handle(GetByIdRentalRequest command)
         {
             var result = _repository.GetById(command.Id);
+
+            if (result != null)
+            {
+                if (File.Exists(result.DeliveryPerson.DriverLicenseImagePath))
+                {
+                    // Ler o arquivo como um array de bytes
+                    byte[] imageBytes = File.ReadAllBytes(result.DeliveryPerson.DriverLicenseImagePath);
+
+                    string ext = Path.GetExtension(result.DeliveryPerson.DriverLicenseImagePath).Replace(".", string.Empty);
+
+                    // Converter o array de bytes para uma string base64
+                    result.DeliveryPerson.DriverLicenseImageBase64 = $"data:image/{ext};base64,{Convert.ToBase64String(imageBytes)}";
+                }
+                else
+                {
+                    result.DeliveryPerson.DriverLicenseImageBase64 = $"File {result.DeliveryPerson.DriverLicenseImagePath} not found";
+                }
+            }
+            else
+            {
+                return new CommandResultDefault(false, StringConstants.RegistrationNotFound);
+            }
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, result);
         }

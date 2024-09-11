@@ -118,10 +118,9 @@ Exemplo: Input para o método "create-deliveryperson". Para esse controle é pre
 }
 ```
 
-Exemplo: Para o método "getall-deliverypersons" não é preciso enviar parâmetros. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
-```
-No parameters
-```
+Exemplo: Para o método "getall-deliverypersons" não é preciso enviar parâmetros.  Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.  
+
+**No parameters**  
 
 Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador..
 ```
@@ -172,10 +171,9 @@ Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso
 }
 ```
 
-Exemplo: Para o método "getall-motorcycles" não é preciso enviar parâmetros. Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
-```
-No parameters
-```
+Exemplo: Para o método "getall-motorcycles" não é preciso enviar parâmetros.  Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+
+**No parameters**  
 
 Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
 ```

@@ -81,7 +81,7 @@ Abra o browser para os testes com swagger no link abaixo:
 https://localhost:8081/swagger/index.html
 ```
 
-## Instruções para o teste com swagger para o controle "DeliveryPerson" (Entregador).
+## Instruções para o teste com swagger para o controle **"DeliveryPerson"** (Entregador).
 
 Exemplo: Input para o método de login como entregador.
 ```
@@ -104,7 +104,7 @@ Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf
 
 ![Configurando o Authorize](Authorize.png)
 
-Exemplo: Input para o método "create-deliveryperson". Para esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize**.
+Exemplo: Input para o método **"create-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
 ```
 {
   "deliveryPerson": {
@@ -118,25 +118,40 @@ Exemplo: Input para o método "create-deliveryperson". Para esse controle é pre
 }
 ```
 
-Exemplo: Para o método "getall-deliverypersons" não é preciso enviar parâmetros.  Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.  
+Exemplo: Para o método **"getall-deliverypersons"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.  
 
 **No parameters**  
 
-Exemplo: Input para o método "getbyid-deliveryperson". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador..
+Exemplo: Input para o método **"getbyid-deliveryperson"**. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
 ```
 {
   "id": 1
 }
 ```
 
-Exemplo: Input para o método "delete-deliveryperson". Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador..
+Exemplo: Input para o método **"update-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
+```
+{
+  "id": 1,
+  "deliveryPerson": {
+    "name": "Alvaro Oliveira Jr",
+    "cnpj": "10024587890",
+    "birthDate": "1970-03-15T19:36:34.065Z",
+    "driverLicenseNumber": "123578",
+    "driverLicenseType": "A+B",
+    "driverLicenseImageBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII="
+  }
+}
+```
+
+Exemplo: Input para o método **"delete-deliveryperson"**. Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para administrador.
 ```
 {
   "id": 1
 }
 ```
 
-## Instruções para o teste com swagger para o controle "Motorcycle" (Moto).
+## Instruções para o teste com swagger para o controle **"Motorcycle"** (Moto).
 
 Exemplo: Input para o método de login como administrador.
 ```
@@ -159,7 +174,7 @@ Copie esse esse token **bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVf
 
 ![Configurando o Authorize](Authorize.png)
 
-Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+Exemplo: Input para o método **"create-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
 ```
 {
   "motorcycle": {
@@ -171,11 +186,18 @@ Exemplo: Input para o método "create-motorcycle". Para esse controle é preciso
 }
 ```
 
-Exemplo: Para o método "getall-motorcycles" não é preciso enviar parâmetros.  Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+Exemplo: Para o método **"getall-motorcycles"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
 
 **No parameters**  
 
-Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+Exemplo: Input para o método **"getbyid-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+```
+{
+  "id": 1
+}
+```
+
+Exemplo: Input para o método **"update-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
 ```
 {
   "id": 1,
@@ -187,3 +209,17 @@ Exemplo: Input para o método "update-motorcycle". Para esse controle é preciso
   }
 }
 ```
+
+Exemplo: Input para o método **"delete-motorcycle"**. Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.
+```
+{
+  "id": 1
+}
+```
+
+## Instruções para o teste com Swagger do controle "MotorcycleEventRegisterMQ"  
+Este método exibe os registros de motos cadastradas é de 2024. O consumidor RabbitMQ, que está rodando como um BackgroundService quando a Web API é iniciada, processa esses eventos e os grava no banco de dados.
+
+Exemplo: Para o método **"getall-motorcycleeventregistermq"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+
+**No parameters**  

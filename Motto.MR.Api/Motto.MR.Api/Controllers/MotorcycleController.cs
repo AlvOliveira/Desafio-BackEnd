@@ -74,7 +74,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getall-motorcycles")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetAllMotorcycles
         (
             [FromServices] MotorcycleHandler handler
@@ -95,7 +95,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbyid-motorcycle")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetByIdMotorcycle
         (
             [FromBody] GetByIdMotorcycleRequest command,
@@ -117,7 +117,7 @@ namespace Motto.MR.Api.Controllers
         }
 
         [HttpPost("getbylicenseplate-motorcycle")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Delivery")]
         public async Task<IActionResult> GetByLicensePlateMotorcycle
         (
             [FromBody] GetByLicensePlateMotorcycleRequest command,

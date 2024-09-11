@@ -8,6 +8,6 @@ namespace Motto.MR.Domain.Commands.Requests.Rent
         {
         }
         public int Id { get; set; }
-        public Rental Rental { get; set; }
+        public RentalOperation Rental { get; set; }
     }
 }

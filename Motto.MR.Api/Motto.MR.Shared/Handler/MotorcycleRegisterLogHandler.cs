@@ -1,6 +1,5 @@
 ﻿using Motto.MR.Domain.Interfaces.Repositories;
 using Motto.MR.Shared.Commands;
-using Motto.MR.Shared.Commands.Request;
 using Motto.MR.Shared.Constants;
 
 namespace Motto.MR.Domain.Handler
@@ -14,11 +13,8 @@ namespace Motto.MR.Domain.Handler
             _repository = repository; 
         }
 
-        public ICommandResult Handle(GetAllMotorcycleRegisterLogsRequest command)
+        public ICommandResult Handle()
         {
-            if (command.UserIdentifier.ToLower().Trim() != "admin")
-                return new CommandResultDefault(false, StringConstants.ErrorUserMessage);
-
             var resultList = _repository.GetAllAsNoTracking();
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage, resultList);

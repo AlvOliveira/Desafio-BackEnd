@@ -15,9 +15,9 @@ namespace Motto.MR.DataAccess.Repositories
             _context = context;
         }
 
-        public void Create(Rental rental)
+        public void Create(RentalOperation rental)
         {
-            _context.Rentals.Add(rental);
+            _context.Rentals.Add(rental.GetRental());
             _context.SaveChanges();
         }
 
@@ -53,12 +53,20 @@ namespace Motto.MR.DataAccess.Repositories
                            .FirstOrDefault(r => r.Id == id);
         }
 
-        public void Update(int id, Rental rental)
+        public void Update(int id, RentalOperation rentalOperation)
         {
             var existingRental = _context.Rentals.Find(id);
             if (existingRental != null)
             {
+                var motorcycle = _context.Motorcycles.Find(rentalOperation.MotorcycleId);
+                var deliveryPerson = _context.DeliveryPersons.Find(rentalOperation.DeliveryPersonId);
+
+                var rental = rentalOperation.GetRental();
+
                 rental.SetId(existingRental.Id);
+                rental.Motorcycle = motorcycle;
+                rental.DeliveryPerson = deliveryPerson;
+
                 _context.Entry(existingRental).CurrentValues.SetValues(rental);
                 _context.SaveChanges();
             }

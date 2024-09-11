@@ -2,31 +2,29 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Handler;
 using Motto.MR.Shared.Commands;
-using Motto.MR.Shared.Commands.Request;
 using Serilog;
 
 namespace Motto.MR.Api.Controllers
 {
-    public class MotorcycleRegisterLogController : ControllerBase
+    public class MotorcycleEventRegisterMQController : ControllerBase
     {
-        [HttpPost("getall-motorcycleregisterlogs")]
+        [HttpPost("getall-motorcycleeventregistermq")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAllMotorcycleRegisterLogs
+        public async Task<IActionResult> GetAllMotorcycleEventRegisterMQ
         (
-            [FromBody] GetAllMotorcycleRegisterLogsRequest command,
             [FromServices] MotorcycleRegisterLogHandler handler
         )
         {
-            Log.Debug("GetAllMotorcycleRegisterLogs");
+            Log.Debug("GetAllMotorcycleEventRegisterMQ");
 
             try
             {
-                return Ok((CommandResultDefault)handler.Handle(command));
+                return Ok((CommandResultDefault)handler.Handle());
             }
             catch (Exception e)
             {
                 var info = e.InnerException != null ? e.InnerException.Message : e.Message;
-                Log.Error("GetAllMotorcycleRegisterLogs 885208 {error}", info);
+                Log.Error("GetAllMotorcycleEventRegisterMQ 885208 {error}", info);
                 return Ok(new CommandResultDefault { Success = false, Message = info });
             }
         }

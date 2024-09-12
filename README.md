@@ -152,6 +152,11 @@ Esse método remove o cadastro do entregador desde que não esteja alugando algu
 }
 ```
 
+Exemplo: Para o método **"getall-licensecategories"** não é preciso enviar parâmetros.  Retorna todos os tipos de categorias de habilitação.  Na criação do entregador é a informação para preencher o campo **"driverLicenseType"**.  Não há necessidade de fazer login no sistema.
+
+**No parameters**  
+
+
 ## Instruções para o teste com swagger para o controle **"Motorcycle"** (Moto).
 
 Exemplo: Input para o método de login como administrador.

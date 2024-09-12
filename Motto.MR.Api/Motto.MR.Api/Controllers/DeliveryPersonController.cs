@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Motto.MR.Domain.Commands.Requests.Delivery;
 using Motto.MR.Domain.Handler;
 using Motto.MR.Shared.Commands;
+using Motto.MR.Shared.Enum;
 using Serilog;
 
 namespace Motto.MR.Api.Controllers
@@ -113,6 +114,14 @@ namespace Motto.MR.Api.Controllers
                 Log.Error("GetByIdDeliveryPerson YWDQWT {error}", info);
                 return Ok(new CommandResultDefault { Success = false, Message = info });
             }
+        }
+
+        [HttpGet("getall-licensecategories")]
+        public IActionResult GetAllLicenseCategories()
+        {
+            var categories = Enum.GetNames(typeof(MotorcycleLicenseCategory)).ToList();
+
+            return Ok(categories);
         }
     }
 }

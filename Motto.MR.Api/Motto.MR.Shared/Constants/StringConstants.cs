@@ -10,5 +10,6 @@ namespace Motto.MR.Shared.Constants
         public const string ErrorUserDeliveryMessage = "User is not an delivery person. userIdentifier = \"Delivery\"";
         public const string InvalidImageFormat = "Invalid image format.";
         public const string RegistrationNotFound = "Registration not found.";
+        public const string InvalidLicenseCategory = "Invalid License Category";
     }
 }

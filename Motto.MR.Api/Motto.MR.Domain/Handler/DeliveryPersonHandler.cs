@@ -3,6 +3,7 @@ using Motto.MR.Domain.Interfaces.Repositories;
 using Motto.MR.Shared.Commands;
 using Motto.MR.Shared.Constants;
 using Motto.MR.Shared.Helper;
+using Motto.MR.Shared.Enum;
 
 namespace Motto.MR.Domain.Handler
 {
@@ -18,6 +19,12 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(CreateDeliveryPersonRequest command)
         {
+
+            if (!LicenseCategory.Validate(command.DeliveryPerson.DriverLicenseType))
+            {
+                return new CommandResultDefault(false, StringConstants.InvalidLicenseCategory);
+            }
+
             string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "delivery", "images");
             if (!Directory.Exists(directoryPath))
             {
@@ -52,6 +59,11 @@ namespace Motto.MR.Domain.Handler
 
         public ICommandResult Handle(UpdateDeliveryPersonRequest command)
         {
+            if (!LicenseCategory.Validate(command.DeliveryPerson.DriverLicenseType))
+            {
+                return new CommandResultDefault(false, StringConstants.InvalidLicenseCategory);
+            }
+
             _repository.Update(command.Id, command.DeliveryPerson);
 
             return new CommandResultDefault(true, StringConstants.SuccessMessage);

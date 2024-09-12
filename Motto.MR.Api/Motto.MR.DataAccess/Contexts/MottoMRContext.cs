@@ -10,6 +10,7 @@ namespace Motto.MR.DataAccess.Contexts
         public DbSet<Motorcycle> Motorcycles { get; set; }
         public DbSet<DeliveryPerson> DeliveryPersons { get; set; }
         public DbSet<Rental> Rentals { get; set; }
+        public DbSet<RentalPlan> RentalPlans { get; set; }
         public DbSet<MotorcycleRegisterLog> MotorcycleRegisterLogs { get; set; }
 
         public MottoMRContext(DbContextOptions<MottoMRContext> options)
@@ -34,6 +35,7 @@ namespace Motto.MR.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new MotorcycleRegisterLogMap());
             modelBuilder.ApplyConfiguration(new DeliveryPersonMap());
             modelBuilder.ApplyConfiguration(new RentalMap());
+            modelBuilder.ApplyConfiguration(new RentalPlanMap());
         }
     }
 }

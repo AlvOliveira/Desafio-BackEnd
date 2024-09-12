@@ -17,7 +17,7 @@ namespace Motto.MR.DataAccess.Repositories
 
         public void Create(RentalOperation rental)
         {
-            _context.Rentals.Add(rental.GetRental());
+            _context.Rentals.Add(rental.GetRental(0));
             _context.SaveChanges();
         }
 
@@ -41,6 +41,7 @@ namespace Motto.MR.DataAccess.Repositories
             return _context.Rentals
                            .Include(r => r.Motorcycle)
                            .Include(r => r.DeliveryPerson)
+                           .Include(r => r.RentalPlan)
                            .AsNoTracking()
                            .ToList();
         }
@@ -50,6 +51,7 @@ namespace Motto.MR.DataAccess.Repositories
             return _context.Rentals
                            .Include(r => r.Motorcycle)
                            .Include(r => r.DeliveryPerson)
+                           .Include(r => r.RentalPlan)
                            .FirstOrDefault(r => r.Id == id);
         }
 
@@ -60,12 +62,13 @@ namespace Motto.MR.DataAccess.Repositories
             {
                 var motorcycle = _context.Motorcycles.Find(rentalOperation.MotorcycleId);
                 var deliveryPerson = _context.DeliveryPersons.Find(rentalOperation.DeliveryPersonId);
+                var rentalPlan = _context.RentalPlans.Find(rentalOperation.RentalPlanId);
 
-                var rental = rentalOperation.GetRental();
+                var rental = rentalOperation.GetRental(existingRental.Id);
 
-                rental.SetId(existingRental.Id);
                 rental.Motorcycle = motorcycle;
                 rental.DeliveryPerson = deliveryPerson;
+                rental.RentalPlan = rentalPlan;
 
                 _context.Entry(existingRental).CurrentValues.SetValues(rental);
                 _context.SaveChanges();

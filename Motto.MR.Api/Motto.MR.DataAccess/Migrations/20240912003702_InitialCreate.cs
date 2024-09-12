@@ -4,6 +4,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Motto.MR.DataAccess.Migrations
 {
     /// <inheritdoc />
@@ -63,6 +65,24 @@ namespace Motto.MR.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RentalPlans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Days = table.Column<int>(type: "integer", nullable: false),
+                    DailyCost = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    PenaltyPercentage = table.Column<decimal>(type: "numeric(5,2)", nullable: true),
+                    AdditionalDailyCost = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RentalPlans", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rentals",
                 columns: table => new
                 {
@@ -70,11 +90,12 @@ namespace Motto.MR.DataAccess.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MotorcycleId = table.Column<int>(type: "integer", nullable: false),
                     DeliveryPersonId = table.Column<int>(type: "integer", nullable: false),
+                    RentalPlanId = table.Column<int>(type: "integer", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExpectedEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Cost = table.Column<decimal>(type: "numeric", nullable: false),
-                    Fine = table.Column<decimal>(type: "numeric", nullable: false)
+                    TotalRentalCost = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalFines = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,6 +112,24 @@ namespace Motto.MR.DataAccess.Migrations
                         principalTable: "Motorcycles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rentals_RentalPlans_RentalPlanId",
+                        column: x => x.RentalPlanId,
+                        principalTable: "RentalPlans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "RentalPlans",
+                columns: new[] { "Id", "AdditionalDailyCost", "Created", "DailyCost", "Days", "PenaltyPercentage", "Updated" },
+                values: new object[,]
+                {
+                    { 1, 50.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9493), 30.00m, 7, 20.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9738) },
+                    { 2, 50.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9963), 28.00m, 15, 40.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9964) },
+                    { 3, 50.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9966), 22.00m, 30, null, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9966) },
+                    { 4, 50.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9968), 20.00m, 45, null, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9968) },
+                    { 5, 50.00m, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9970), 18.00m, 50, null, new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9970) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -126,6 +165,11 @@ namespace Motto.MR.DataAccess.Migrations
                 name: "IX_Rentals_MotorcycleId",
                 table: "Rentals",
                 column: "MotorcycleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rentals_RentalPlanId",
+                table: "Rentals",
+                column: "RentalPlanId");
         }
 
         /// <inheritdoc />
@@ -142,6 +186,9 @@ namespace Motto.MR.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Motorcycles");
+
+            migrationBuilder.DropTable(
+                name: "RentalPlans");
         }
     }
 }

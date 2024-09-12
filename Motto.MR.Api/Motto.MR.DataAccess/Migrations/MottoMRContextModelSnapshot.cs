@@ -163,10 +163,6 @@ namespace Motto.MR.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("numeric")
-                        .HasColumnName("Cost");
-
                     b.Property<int>("DeliveryPersonId")
                         .HasColumnType("integer")
                         .HasColumnName("DeliveryPersonId");
@@ -179,17 +175,25 @@ namespace Motto.MR.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("ExpectedEndDate");
 
-                    b.Property<decimal>("Fine")
-                        .HasColumnType("numeric")
-                        .HasColumnName("Fine");
-
                     b.Property<int>("MotorcycleId")
                         .HasColumnType("integer")
                         .HasColumnName("MotorcycleId");
 
+                    b.Property<int>("RentalPlanId")
+                        .HasColumnType("integer")
+                        .HasColumnName("RentalPlanId");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("StartDate");
+
+                    b.Property<decimal>("TotalFines")
+                        .HasColumnType("numeric")
+                        .HasColumnName("TotalFines");
+
+                    b.Property<decimal>("TotalRentalCost")
+                        .HasColumnType("numeric")
+                        .HasColumnName("TotalRentalCost");
 
                     b.HasKey("Id");
 
@@ -197,7 +201,96 @@ namespace Motto.MR.DataAccess.Migrations
 
                     b.HasIndex("MotorcycleId");
 
+                    b.HasIndex("RentalPlanId");
+
                     b.ToTable("Rentals", (string)null);
+                });
+
+            modelBuilder.Entity("Motto.MR.Shared.Models.RentalPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AdditionalDailyCost")
+                        .HasColumnType("decimal(10, 2)")
+                        .HasColumnName("AdditionalDailyCost");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("Created");
+
+                    b.Property<decimal>("DailyCost")
+                        .HasColumnType("decimal(10, 2)")
+                        .HasColumnName("DailyCost");
+
+                    b.Property<int>("Days")
+                        .HasColumnType("integer")
+                        .HasColumnName("Days");
+
+                    b.Property<decimal?>("PenaltyPercentage")
+                        .HasColumnType("decimal(5, 2)")
+                        .HasColumnName("PenaltyPercentage");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("Updated");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RentalPlans", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdditionalDailyCost = 50.00m,
+                            Created = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9493),
+                            DailyCost = 30.00m,
+                            Days = 7,
+                            PenaltyPercentage = 20.00m,
+                            Updated = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9738)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AdditionalDailyCost = 50.00m,
+                            Created = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9963),
+                            DailyCost = 28.00m,
+                            Days = 15,
+                            PenaltyPercentage = 40.00m,
+                            Updated = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9964)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AdditionalDailyCost = 50.00m,
+                            Created = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9966),
+                            DailyCost = 22.00m,
+                            Days = 30,
+                            Updated = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9966)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AdditionalDailyCost = 50.00m,
+                            Created = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9968),
+                            DailyCost = 20.00m,
+                            Days = 45,
+                            Updated = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9968)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AdditionalDailyCost = 50.00m,
+                            Created = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9970),
+                            DailyCost = 18.00m,
+                            Days = 50,
+                            Updated = new DateTime(2024, 9, 12, 0, 37, 2, 246, DateTimeKind.Utc).AddTicks(9970)
+                        });
                 });
 
             modelBuilder.Entity("Motto.MR.Shared.Models.Rental", b =>
@@ -214,9 +307,17 @@ namespace Motto.MR.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Motto.MR.Shared.Models.RentalPlan", "RentalPlan")
+                        .WithMany()
+                        .HasForeignKey("RentalPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("DeliveryPerson");
 
                     b.Navigation("Motorcycle");
+
+                    b.Navigation("RentalPlan");
                 });
 #pragma warning restore 612, 618
         }

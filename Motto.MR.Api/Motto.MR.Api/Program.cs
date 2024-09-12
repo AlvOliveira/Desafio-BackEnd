@@ -96,6 +96,9 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<IRentalRepository, RentalRepository>();
     builder.Services.AddTransient<RentalHandler, RentalHandler>();
 
+    builder.Services.AddTransient<IRentalPlanRepository, RentalPlanRepository>();
+    builder.Services.AddTransient<RentalPlanHandler, RentalPlanHandler>();
+
     builder.Services.AddTransient<IMotorcycleRegisterLogRepository, MotorcycleRegisterLogRepository>();
     builder.Services.AddTransient<MotorcycleRegisterLogHandler, MotorcycleRegisterLogHandler>();
 }

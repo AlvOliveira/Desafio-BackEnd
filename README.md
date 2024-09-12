@@ -226,7 +226,7 @@ Exemplo: Para o método **"getall-motorcycleeventregistermq"** não é preciso e
 
 **No parameters**  
 
-## Instruções para o teste com swagger para o controle **"Rental"** (Moto).  
+## Instruções para o teste com swagger para o controle **"Rental"** (Locação).  
 
 Exemplo: Input para o método **"create-rental"**.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
 ```
@@ -234,11 +234,12 @@ Exemplo: Input para o método **"create-rental"**.  Para acesso a esse controle 
   "rental": {
     "motorcycleId": 1,
     "deliveryPersonId": 1,
+    "rentalPlanId": 1,
     "startDate": "2024-09-11T13:34:52.948Z",
     "endDate": "2024-09-18T13:34:52.948Z",
     "expectedEndDate": "2024-09-17T13:34:52.948Z",
-    "cost": 30,
-    "fine": 20
+    "totalRentalCost": 30,
+    "totalFines": 20
   }
 }
 ```
@@ -264,8 +265,8 @@ Exemplo: Input para o método **"update-rental"**.  Para acesso a esse controle 
     "startDate": "2024-09-11T13:34:52.948Z",
     "endDate": "2024-09-26T13:34:52.948Z",
     "expectedEndDate": "2024-09-25T13:34:52.948Z",
-    "cost": 28,
-    "fine": 40
+    "totalRentalCost": 28,
+    "totalFines": 40
   }
 }
 ```
@@ -274,5 +275,56 @@ Exemplo: Input para o método **"delete-rental"**. Para acesso a esse controle �
 ```
 {
   "id": 1
+}
+```
+
+## Instruções para o teste com swagger para o controle **"RentalPlan"** (Planos de locação).
+Este método exibe os planos de locação para as motos. Esse planos são carregados automaticamente quando o banco de dados é criado.  
+Mas temos os métodos para realização de criação de novo plano, atualização de plano, pesquisa de plano, listar todos os planos e deletar plano.
+
+Exemplo: Input para o método **"create-rentalplan"**.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+```
+{
+  "rentalPlanOperation": {
+    "days": 90,
+    "dailyCost": 10,
+    "penaltyPercentage": 20,
+    "additionalDailyCost": 10,
+    "created": "2024-09-11T23:55:13.670Z",
+    "updated": "2024-09-11T23:55:13.670Z"
+  }
+}
+```
+
+Exemplo: Para o método **"getall-rentalplans"** não é preciso enviar parâmetros.  Para acesso a esse controle é preciso fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.  
+
+**No parameters**  
+
+Exemplo: Input para o método **"getbyid-rentalplan"**. Para esse controle é preciso informar fazer o login como **"delivery"** (Entregador) e senha **delivery123** e informar o token no **Authorize** funciona também para usuário administrador.
+```
+{
+  "id": 1
+}
+```
+
+Exemplo: Input para o método **"update-rentalplan"**.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+```
+{
+  "id": 6,
+  "rentalPlanOperation": {
+    "days": 10,
+    "dailyCost": 10,
+    "penaltyPercentage": 30,
+    "additionalDailyCost": 50,
+    "created": "2024-09-11T23:56:39.586Z",
+    "updated": "2024-09-11T23:56:39.586Z"
+  }
+}
+```
+
+Exemplo: Input para o método **"delete-rentalplan"**.  Para acesso a esse controle é preciso fazer o login como **"admin"** (Administrador) e senha **admin123** e informar o token no **Authorize**.  
+```
+{
+  "id": 6
 }
 ```

@@ -26,6 +26,10 @@ namespace Motto.MR.DataAccess.Mappings
                 .IsRequired()
                 .HasColumnName("DeliveryPersonId");
 
+            builder.Property(rt => rt.RentalPlanId)
+                .IsRequired()
+                .HasColumnName("RentalPlanId");
+
             builder.Property(rt => rt.StartDate)
                 .IsRequired()
                 .HasColumnName("StartDate");
@@ -38,13 +42,13 @@ namespace Motto.MR.DataAccess.Mappings
                 .IsRequired()
                 .HasColumnName("ExpectedEndDate");
 
-            builder.Property(rt => rt.Cost)
+            builder.Property(rt => rt.TotalRentalCost)
                 .IsRequired()
-                .HasColumnName("Cost");
+                .HasColumnName("TotalRentalCost");
 
-            builder.Property(rt => rt.Fine)
+            builder.Property(rt => rt.TotalFines)
                 .IsRequired()
-                .HasColumnName("Fine");
+                .HasColumnName("TotalFines");
 
             builder.HasOne(rt => rt.Motorcycle)
                 .WithMany()
@@ -54,6 +58,11 @@ namespace Motto.MR.DataAccess.Mappings
             builder.HasOne(rt => rt.DeliveryPerson)
                 .WithMany()
                 .HasForeignKey(rt => rt.DeliveryPersonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(rt => rt.RentalPlan)
+                .WithMany()
+                .HasForeignKey(rt => rt.RentalPlanId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

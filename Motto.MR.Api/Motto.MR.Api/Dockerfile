@@ -16,6 +16,7 @@ COPY ["Motto.MR.Api/Motto.MR.Api.csproj", "Motto.MR.Api/"]
 COPY ["Motto.MR.DataAccess/Motto.MR.DataAccess.csproj", "Motto.MR.DataAccess/"]
 COPY ["Motto.MR.Domain/Motto.MR.Domain.csproj", "Motto.MR.Domain/"]
 COPY ["Motto.MR.Shared/Motto.MR.Shared.csproj", "Motto.MR.Shared/"]
+COPY ["Motto.MR.Security/Motto.MR.Security.csproj", "Motto.MR.Security/"]
 RUN dotnet restore "./Motto.MR.Api/Motto.MR.Api.csproj"
 COPY . .
 WORKDIR "/src/Motto.MR.Api"
